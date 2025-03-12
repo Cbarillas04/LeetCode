@@ -1,0 +1,19 @@
+class Solution {
+    public int subarraysDivByK(int[] nums, int k) {
+        int prefixSum = 0;
+        int count = 0;
+        Map<Integer, Integer> moduloCount = new HashMap<>();
+        moduloCount.put(0, 1);
+
+        for (int num : nums) {
+            prefixSum += num;
+            //Correct method of mod equation so it works with negative numbers
+            int mod = ((prefixSum % k)+ k) % k;
+
+            count += moduloCount.getOrDefault(mod, 0);
+            moduloCount.put(mod, moduloCount.getOrDefault(mod, 0) + 1);
+        }
+
+        return count;
+    }
+}
