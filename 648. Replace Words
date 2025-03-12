@@ -1,0 +1,23 @@
+class Solution {
+    public String replaceWords(List<String> dictionary, String sentence) {
+        String newString = "";
+
+        for (String word: sentence.split(" ")){
+            String temp = "";
+            for(String dic: dictionary){
+                if (word.startsWith(dic)){
+                    if (temp == "" || dic.length() < temp.length()){
+                        temp = dic;
+                    }
+                }
+            }
+            if (temp != ""){
+                newString += temp + " ";
+            }
+            else{
+                newString += word + " ";
+                }
+        }
+        return newString.strip();
+    }
+}
