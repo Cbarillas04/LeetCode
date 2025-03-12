@@ -1,0 +1,36 @@
+import java.util.*;
+
+class Solution {
+    public int[] relativeSortArray(int[] arr1, int[] arr2) {
+        HashMap<Integer, Integer> count = new HashMap<>();
+        for (int num : arr1) {
+            count.put(num, count.getOrDefault(num, 0) + 1);
+        }
+
+        int[] result = new int[arr1.length];
+        int index = 0;
+        
+        for (int num : arr2) {
+            int occurrences = count.get(num);
+            for (int i = 0; i < occurrences; i++) {
+                result[index++] = num;
+            }
+            count.remove(num);
+        }
+
+        List<Integer> remaining = new ArrayList<>();
+        for (int num : count.keySet()) {
+            int occurrences = count.get(num);
+            for (int i = 0; i < occurrences; i++) {
+                remaining.add(num);
+            }
+        }
+        Collections.sort(remaining);
+        
+        for (int num : remaining) {
+            result[index++] = num;
+        }
+        
+        return result;
+    }
+}
